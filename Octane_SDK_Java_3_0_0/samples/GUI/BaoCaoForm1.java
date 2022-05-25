@@ -1,0 +1,463 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package GUI;
+
+import BUS.BaoCaoBUS;
+import BUS.DonHangBUS;
+import BUS.ChiTietDonBUS;
+import BUS.SanPhamBUS;
+import BUS.XuatExcel;
+import DTO.DonHangDTO;
+import DTO.ChiTietDonHangDTO;
+import DTO.SanPhamDTO;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
+/**
+ *
+ * @author Hung
+ */
+public class BaoCaoForm1 extends javax.swing.JFrame
+{
+
+    int rowDon = -2, rowChiTietDon = -2;
+    String orderId = "";
+    DefaultTableModel tbModelDon, tbModelChiTietDon;
+    DonHangBUS donBUS = new DonHangBUS();
+    ChiTietDonBUS chitietDonBUS = new ChiTietDonBUS();
+    SanPhamBUS sanPhamBUS = new SanPhamBUS();
+    BaoCaoBUS baoCaoBUS = new BaoCaoBUS();
+    XuatExcel xuatExcel = new XuatExcel();
+
+    ArrayList<DonHangDTO> donList = new ArrayList<>();
+    ArrayList<DonHangDTO> donListFind = new ArrayList<>();
+    ArrayList<ChiTietDonHangDTO> chitietDonList;
+    ArrayList<SanPhamDTO> sanPhamList;
+
+
+    public BaoCaoForm1()
+    {
+        initComponents();
+        this.setVisible(false);
+        jTableDon.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTableChiTietDon.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }
+
+    public void createTableModelDon(DefaultTableModel model, ArrayList<DonHangDTO> donDTOs)
+    {
+        for (DonHangDTO don : donDTOs)
+        {
+            Vector row = new Vector();
+            row.add(don.getOrderId());
+            row.add(don.getOrderDate());
+            if (don.getStatus() == 2)
+            {
+                row.add("Đang Chờ....");
+            } else if (don.getStatus() == 3)
+            {
+                row.add("Hoàn thành");
+            }
+            model.addRow(row);
+        }
+    }
+
+    public void createTableDon()
+    {
+        jDateFrom.setCalendar(null);
+        jDateTo.setCalendar(null);
+        tbModelDon.setRowCount(0);
+        tbModelChiTietDon.setRowCount(0);
+
+        donList = donBUS.getList();
+        chitietDonList = chitietDonBUS.getList();
+        sanPhamList = sanPhamBUS.getList();
+        jTableDon.setRowSorter(null);
+        jTableDon.setAutoCreateRowSorter(true);
+        jTableDon.setModel(tbModelDon);
+    }
+
+    public void createTableModelChiTietDon(DefaultTableModel model)
+    {
+        Vector row;
+        for (ChiTietDonHangDTO chitietDon : chitietDonList)
+        {
+            if (chitietDon.getOrderId().equals(orderId))
+            {
+                row = new Vector();
+                if (tbModelDon.getValueAt(rowDon, 2).equals("Hoàn thành"))
+                {
+                    row.add("OK");
+                } else
+                {
+                    row.add("");
+                }
+                row.add(chitietDon.getOrderDetailId());
+                row.add(chitietDon.getProductId());
+                for (SanPhamDTO sanPham : sanPhamList)
+                {
+                    if (sanPham.getProductId().equals(chitietDon.getProductId()))
+                    {
+                        row.add(sanPham.getProductName());
+                    }
+                }
+                row.add(chitietDon.getOrderQuantity());
+                model.addRow(row);
+            }
+        }
+    }
+
+    public void createTableChiTietDon()
+    {
+        tbModelChiTietDon.setRowCount(0);
+        createTableModelChiTietDon(tbModelChiTietDon);
+        jTableChiTietDon.setModel(tbModelChiTietDon);
+    }
+    
+    public void timKiemByDate(Date from, Date to)
+    {
+        if (donListFind != null)
+        {
+            donListFind.clear();
+        }
+        tbModelDon.setRowCount(0);
+        Date orderDate = null;
+        for (DonHangDTO order : donList)
+        {
+            try
+            {
+                orderDate = new SimpleDateFormat("yyyy-MM-dd").parse(order.getOrderDate());
+            } catch (Exception e)
+            {
+                System.out.println("e: " + e);
+                JOptionPane.showMessageDialog(this, e);
+                return;
+            }
+            if (orderDate.after(from) && orderDate.before(to) || orderDate.equals(from) || orderDate.equals(to))
+            {
+                donListFind.add(order);
+            }
+        }
+        if (donListFind != null)
+        {
+            createTableModelDon(tbModelDon, donListFind);
+        }
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents()
+    {
+
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jBtnXuat = new javax.swing.JButton();
+        jBtnTimKiem = new javax.swing.JButton();
+        jBtnRefresh = new javax.swing.JButton();
+        jDateTo = new com.toedter.calendar.JDateChooser();
+        jDateFrom = new com.toedter.calendar.JDateChooser();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableDon = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableChiTietDon = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(990, 650));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("XUẤT BÁO CÁO");
+        jLabel1.setToolTipText("");
+        jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 290, 40));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setText("DANH SÁCH ĐƠN");
+        jLabel2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 163, 40));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setText("CHI TIẾT ĐƠN");
+        jLabel3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 140, 163, 40));
+
+        jBtnXuat.setBackground(new java.awt.Color(255, 255, 255));
+        jBtnXuat.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jBtnXuat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_microsoft_excel_32.png"))); // NOI18N
+        jBtnXuat.setBorder(null);
+        jBtnXuat.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jBtnXuatActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBtnXuat, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 150, -1, -1));
+
+        jBtnTimKiem.setBackground(new java.awt.Color(255, 255, 255));
+        jBtnTimKiem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jBtnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/search_25px.png"))); // NOI18N
+        jBtnTimKiem.setBorder(null);
+        jBtnTimKiem.setPreferredSize(new java.awt.Dimension(38, 38));
+        jBtnTimKiem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jBtnTimKiemActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBtnTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 90, -1, -1));
+
+        jBtnRefresh.setBackground(new java.awt.Color(255, 255, 255));
+        jBtnRefresh.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jBtnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_refresh_32.png"))); // NOI18N
+        jBtnRefresh.setBorder(null);
+        jBtnRefresh.setPreferredSize(new java.awt.Dimension(38, 38));
+        jBtnRefresh.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jBtnRefreshActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBtnRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, -1, -1));
+
+        jDateTo.setBackground(new java.awt.Color(214, 217, 223));
+        jDateTo.setDateFormatString("yyyy-MM-dd");
+        jPanel1.add(jDateTo, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 160, 40));
+
+        jDateFrom.setBackground(new java.awt.Color(214, 217, 223));
+        jDateFrom.setDateFormatString("yyyy-MM-dd");
+        jPanel1.add(jDateFrom, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 160, 40));
+
+        Vector tableCol = new Vector();
+        tableCol.add("ID Đơn");
+        tableCol.add("Ngày tạo");
+        tableCol.add("Trạng Thái");
+
+        tbModelDon = new DefaultTableModel (tableCol,0)
+        {
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
+                return false;
+            }
+        };
+        jTableDon.setModel (tbModelDon);
+        jTableDon.setShowGrid(true);
+        jTableDon.setFocusable(false);
+        jTableDon.setIntercellSpacing(new Dimension(0,0));
+        jTableDon.setRowHeight(25);
+        jTableDon.getTableHeader().setOpaque(false);
+        jTableDon.setFillsViewportHeight(true);
+        //        jTableDon.getTableHeader().setBackground(new Color(145,209,242));
+        //        jTableDon.getTableHeader().setForeground(new Color(51, 51, 51));
+        jTableDon.getTableHeader().setFont (new Font("Dialog", Font.BOLD, 13));
+        //        jTableDon.setSelectionBackground(new Color(76,121,255));
+        jTableDon.setAutoCreateRowSorter(true);
+        jTableDon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jTableDon.setGridColor(new java.awt.Color(83, 86, 88));
+        jTableDon.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                jTableDonMouseClicked(evt);
+            }
+        });
+        jTableDon.getColumn (tableCol.elementAt (0)).setPreferredWidth (150);
+        jTableDon.getColumn (tableCol.elementAt (1)).setPreferredWidth (150);
+        jTableDon.getColumn (tableCol.elementAt (2)).setPreferredWidth (150);
+        jTableDon.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jScrollPane1.setViewportView(jTableDon);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 440, 440));
+
+        Vector tableColDetail = new Vector();
+        tableColDetail.add("Trạng Thái");
+        tableColDetail.add("ID CT Đơn");
+        tableColDetail.add("ID Sản Phẩm");
+        tableColDetail.add("Tên Sản Phẩm");
+        tableColDetail.add("Số Lượng");
+
+        tbModelChiTietDon = new DefaultTableModel (tableColDetail,0)
+        {
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
+                return false;
+            }
+        };
+        jTableChiTietDon.setModel (tbModelChiTietDon);
+        jTableChiTietDon.setShowGrid(true);
+        jTableChiTietDon.setFocusable(false);
+        jTableChiTietDon.setIntercellSpacing(new Dimension(0,0));
+        jTableChiTietDon.setRowHeight(25);
+        jTableChiTietDon.getTableHeader().setOpaque(false);
+        jTableChiTietDon.setFillsViewportHeight(true);
+        //        jTableDon.getTableHeader().setBackground(new Color(145,209,242));
+        //        jTableDon.getTableHeader().setForeground(new Color(51, 51, 51));
+        jTableChiTietDon.getTableHeader().setFont (new Font("Dialog", Font.BOLD, 13));
+        //        jTableDon.setSelectionBackground(new Color(76,121,255));
+        jTableChiTietDon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jTableChiTietDon.setGridColor(new java.awt.Color(83, 86, 88));
+        jTableChiTietDon.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                jTableChiTietDonMouseClicked(evt);
+            }
+        });
+        jTableChiTietDon.getColumn (tableColDetail.elementAt (0)).setPreferredWidth (110);
+        jTableChiTietDon.getColumn (tableColDetail.elementAt (1)).setPreferredWidth (110);
+        jTableChiTietDon.getColumn (tableColDetail.elementAt (2)).setPreferredWidth (110);
+        jTableChiTietDon.getColumn (tableColDetail.elementAt (3)).setPreferredWidth (150);
+        jTableChiTietDon.getColumn (tableColDetail.elementAt (4)).setPreferredWidth (110);
+        jTableChiTietDon.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_OFF);
+        jScrollPane2.setViewportView(jTableChiTietDon);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 190, 460, 440));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setText("TỪ");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 30, 40));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel5.setText("ĐẾN");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 40, 40));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jBtnXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXuatActionPerformed
+        // TODO add your handling code here:
+        if (jTableDon.getRowCount() < 1)
+        {
+            JOptionPane.showMessageDialog(this, "Không có dữ liệu để xuất!");
+            return;
+        }
+        xuatExcel.xuatFileExcelDonHang(baoCaoBUS.createBaoCao(donListFind));
+    }//GEN-LAST:event_jBtnXuatActionPerformed
+
+    private void jBtnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTimKiemActionPerformed
+        // TODO add your handling code here:
+        String d1 = ((JTextField) jDateFrom.getDateEditor().getUiComponent()).getText();
+        String d2 = ((JTextField) jDateTo.getDateEditor().getUiComponent()).getText();
+
+        if (d1.equals("") || d2.equals(""))
+        {
+            JOptionPane.showMessageDialog(this, "Các trường Ngày không được bỏ trống!!!");
+            return;
+        }
+
+        try
+        {
+            Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(d1);
+            Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(d2);
+            if (date1.after(date2))
+            {
+                JOptionPane.showMessageDialog(this, "Ngày đến không được sau ngày từ!!!");
+                return;
+            }
+            timKiemByDate(date1, date2);
+        } catch (Exception e)
+        {
+            System.out.println("e: " + e);
+            JOptionPane.showMessageDialog(this, e);
+            return;
+        }
+    }//GEN-LAST:event_jBtnTimKiemActionPerformed
+
+    private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
+        // TODO add your handling code here:
+        jDateFrom.setCalendar(null);
+        jDateTo.setCalendar(null);
+        createTableDon();
+        tbModelChiTietDon.setRowCount(0);
+    }//GEN-LAST:event_jBtnRefreshActionPerformed
+
+    private void jTableDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableDonMouseClicked
+        // TODO add your handling code here:
+        int row = jTableDon.getSelectedRow();
+
+        if (row != -1)
+        {
+            rowDon = row;
+            orderId = (String) jTableDon.getValueAt(row, 0);
+            createTableChiTietDon();
+        }
+
+
+    }//GEN-LAST:event_jTableDonMouseClicked
+
+    private void jTableChiTietDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableChiTietDonMouseClicked
+        // TODO add your handling code here:
+        int row = jTableChiTietDon.getSelectedRow();
+
+        if (row != -1)
+        {
+            rowChiTietDon = row;
+        }
+
+    }//GEN-LAST:event_jTableChiTietDonMouseClicked
+
+    public JPanel getjPanel1()
+    {
+        return jPanel1;
+    }
+
+    public void setjPanel1(JPanel jPanel1)
+    {
+        this.jPanel1 = jPanel1;
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtnRefresh;
+    private javax.swing.JButton jBtnTimKiem;
+    private javax.swing.JButton jBtnXuat;
+    private com.toedter.calendar.JDateChooser jDateFrom;
+    private com.toedter.calendar.JDateChooser jDateTo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTableChiTietDon;
+    private javax.swing.JTable jTableDon;
+    // End of variables declaration//GEN-END:variables
+}

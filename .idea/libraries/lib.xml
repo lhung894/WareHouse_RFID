@@ -1,0 +1,28 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/lib/KGradientPanel.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/jdom-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/commons-codec-1.12.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/mssql-jdbc-9.4.0.jre11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/jcalendar-1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/example.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/mssql-jdbc-9.4.0.jre8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/costello.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/gnu-regexp-1.1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/groovy-all-1.8.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/mssql-jdbc-9.4.0.jre16.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/junit-4.8.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/OctaneSDKJava-3.0.0.0-jar-with-dependencies.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/AbsoluteLayout-RELEASE130.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/itextpdf-5.5.13.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/poi-ooxml-5.2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/abbot.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/commons-collections4-4.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/LGoodDatePicker-10.4.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/lib/poi-4.1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
