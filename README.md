@@ -9,7 +9,7 @@
 
 ## Hình Ảnh Thiết Bị
 
-![Impinj](http://rfidsolution.com.vn/image/data/7_sanpham/impinj/fix-readers/r420/r420-5.jpg)
+![Impinj](https://www.researchgate.net/publication/283974386/figure/fig1/AS:317165543673869@1452629566906/ImpinJ-R420-reader-range-measurement-experiment.png)
 ![Tag RFID](https://www.ruddersoft.com/images/rfid/rfid-tags/tag.jpg)
 ---
 ### 🎯 Chức Năng Xuất Kho 
@@ -34,6 +34,3 @@
 ➡️ [Youtube](https://youtu.be/PcqYyYFSFf0)
 
 ---
-## Screenshots
-
-![App Screenshot](http://rfidsolution.com.vn/image/data/7_sanpham/impinj/fix-readers/r420/r420-5.jpg)
