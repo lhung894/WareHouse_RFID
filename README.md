@@ -9,7 +9,7 @@
 
 ## Hình Ảnh Thiết Bị
 
-![Impinj](https://www.researchgate.net/publication/283974386/figure/fig1/AS:317165543673869@1452629566906/ImpinJ-R420-reader-range-measurement-experiment_Q640.jpg)
+![Impinj](https://www.researchgate.net/publication/283974386/figure/fig1/AS:317165543673869@1452629566906/ImpinJ-R420-reader-range-measurement-experiment_Q640.jpg](https://thegioimavach.com/image/cache/catalog/00aaa-hendy/u-%C4%91%E1%BB%8Dc-RFID-R420%20(1)-800x800.JPG)
 ![Tag RFID](https://www.ruddersoft.com/images/rfid/rfid-tags/tag.jpg)
 ---
 ### 🎯 Chức Năng Xuất Kho 
