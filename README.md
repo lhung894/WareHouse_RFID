@@ -9,7 +9,7 @@
 
 ## Hình Ảnh Thiết Bị
 
-![Impinj](https://www.researchgate.net/publication/283974386/figure/fig1/AS:317165543673869@1452629566906/ImpinJ-R420-reader-range-measurement-experiment.png)
+![Impinj](https://www.researchgate.net/publication/283974386/figure/fig1/AS:317165543673869@1452629566906/ImpinJ-R420-reader-range-measurement-experiment_Q640.jpg)
 ![Tag RFID](https://www.ruddersoft.com/images/rfid/rfid-tags/tag.jpg)
 ---
 ### 🎯 Chức Năng Xuất Kho 
